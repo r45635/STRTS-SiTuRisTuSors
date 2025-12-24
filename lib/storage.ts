@@ -3,13 +3,54 @@
  * Gère la sauvegarde des profils joueurs et de l'état de la partie en cours
  */
 
-import type { ProfilJoueur, EtatPartie, EtatPartieSauvegarde } from "@/types";
+import type { ProfilJoueur, EtatPartie, EtatPartieSauvegarde, PreferencesSonores } from "@/types";
 
 // Ré-exporter les types pour les utiliser ailleurs
-export type { ProfilJoueur, EtatPartie, EtatPartieSauvegarde };
+export type { ProfilJoueur, EtatPartie, EtatPartieSauvegarde, PreferencesSonores };
 
 const CLE_PROFILS = "strts_profils_joueurs";
 const CLE_PARTIE_EN_COURS = "strts_partie_en_cours";
+const CLE_PREFERENCES_SONORES = "strts_preferences_sonores";
+
+// ========== PRÉFÉRENCES SONORES ==========
+
+/**
+ * Préférences sonores par défaut
+ */
+const PREFERENCES_SONORES_PAR_DEFAUT: PreferencesSonores = {
+  sonActif: true,
+  volumeEffetsSonores: 0.7,
+};
+
+/**
+ * Charge les préférences sonores depuis localStorage
+ */
+export function chargerPreferencesSonores(): PreferencesSonores {
+  if (typeof window === "undefined") return PREFERENCES_SONORES_PAR_DEFAUT;
+
+  try {
+    const data = localStorage.getItem(CLE_PREFERENCES_SONORES);
+    if (!data) return PREFERENCES_SONORES_PAR_DEFAUT;
+
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Erreur lors du chargement des préférences sonores:", error);
+    return PREFERENCES_SONORES_PAR_DEFAUT;
+  }
+}
+
+/**
+ * Sauvegarde les préférences sonores
+ */
+export function sauvegarderPreferencesSonores(preferences: PreferencesSonores): void {
+  if (typeof window === "undefined") return;
+
+  try {
+    localStorage.setItem(CLE_PREFERENCES_SONORES, JSON.stringify(preferences));
+  } catch (error) {
+    console.error("Erreur lors de la sauvegarde des préférences sonores:", error);
+  }
+}
 
 // ========== PROFILS JOUEURS ==========
 

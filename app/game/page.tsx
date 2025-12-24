@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { EtatPartie, Blague, Joueur } from "@/types";
+import type { EtatPartie, Blague, Joueur, PreferencesSonores } from "@/types";
 import {
   obtenirJoueurCourant,
   tirerBlague,
@@ -29,7 +29,9 @@ import {
   chargerPartieEnCours,
   sauvegarderPartieEnCours,
   supprimerPartieEnCours,
+  chargerPreferencesSonores,
 } from "@/lib/storage";
+import { jouerSon } from "@/lib/sound";
 
 type EcranType = "tour" | "revelation" | "menu" | "eliminer" | "jeRisJeSors" | "victoire";
 
@@ -38,8 +40,13 @@ export default function GamePage() {
   const [partie, setPartie] = useState<EtatPartie | null>(null);
   const [ecranActif, setEcranActif] = useState<EcranType>("tour");
   const [joueursAEliminer, setJoueursAEliminer] = useState<string[]>([]);
+  const [preferencesSonores, setPreferencesSonores] = useState<PreferencesSonores>({
+    sonActif: true,
+    volumeEffetsSonores: 0.7,
+  });
 
   useEffect(() => {
+    setPreferencesSonores(chargerPreferencesSonores());
     const partieChargee = chargerPartieEnCours();
     if (!partieChargee) {
       router.push("/");
@@ -70,16 +77,19 @@ export default function GamePage() {
     const resultat = tirerBlague(partie);
     
     if (resultat.erreur === "aucuneDisponible") {
+      jouerSon("ERREUR", preferencesSonores);
       alert("Plus de blagues disponibles ! Veuillez élargir les catégories ou recommencer.");
       return;
     }
     
     if (resultat.erreur === "pasDeCategories") {
+      jouerSon("ERREUR", preferencesSonores);
       alert("Aucune catégorie sélectionnée pour ce joueur !");
       return;
     }
 
     if (resultat.blague) {
+      jouerSon("BLAGUE_AFFICHEE", preferencesSonores);
       const nouvellePartie = revelerBlague(partie, resultat.blague);
       setPartie(nouvellePartie);
       setEcranActif("revelation");
@@ -95,6 +105,7 @@ export default function GamePage() {
 
   const handleRefuserBlague = () => {
     if (!partie) return;
+    jouerSon("REFUS_BLAGUE", preferencesSonores);
     const nouvellePartie = refuserBlague(partie);
     setPartie(nouvellePartie);
     setEcranActif("tour");
@@ -130,6 +141,7 @@ export default function GamePage() {
   const handleConfirmerJeRisJeSors = () => {
     if (!partie || joueursAEliminer.length === 0) return;
     
+    jouerSon("JOUEUR_ELIMINÉ", preferencesSonores);
     const joueursActifs = partie.joueurs.filter(j => !j.estElimine);
     
     // Si tous les joueurs actifs ont ri, partie terminée sans gagnant
@@ -156,6 +168,8 @@ export default function GamePage() {
       const partieAvecJoueurSuivant = passerAuJoueurSuivant(nouvellePartie);
       setPartie(partieAvecJoueurSuivant);
       setEcranActif("tour");
+    } else {
+      jouerSon("VICTOIRE", preferencesSonores);
     }
   };
 

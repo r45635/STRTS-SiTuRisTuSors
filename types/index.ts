@@ -90,6 +90,14 @@ export interface ResultatTirage {
 // ========== TYPES DE PERSISTANCE ==========
 
 /**
+ * Préférences sonores de l'application
+ */
+export interface PreferencesSonores {
+  sonActif: boolean;
+  volumeEffetsSonores: number; // 0 à 1
+}
+
+/**
  * Profil d'un joueur sauvegardé (localStorage)
  */
 export interface ProfilJoueur {

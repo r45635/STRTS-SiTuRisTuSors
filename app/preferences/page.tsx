@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, User, Edit, Trash2, X } from "lucide-react";
+import { ArrowLeft, User, Edit, Trash2, X, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,10 @@ import {
   chargerProfilsJoueurs,
   supprimerProfilJoueur,
   modifierProfilJoueur,
+  chargerPreferencesSonores,
+  sauvegarderPreferencesSonores,
   type ProfilJoueur,
+  type PreferencesSonores,
 } from "@/lib/storage";
 import { obtenirCategories, compterBlaguesParCategorie } from "@/lib/blagues";
 
@@ -21,9 +24,14 @@ export default function PreferencesPage() {
   const [profilEnEdition, setProfilEnEdition] = useState<string | null>(null);
   const [categoriesDisponibles] = useState<string[]>(obtenirCategories());
   const [compteurBlagues] = useState(compterBlaguesParCategorie());
+  const [preferencesSonores, setPreferencesSonores] = useState<PreferencesSonores>({
+    sonActif: true,
+    volumeEffetsSonores: 0.7,
+  });
 
   useEffect(() => {
     chargerProfils();
+    setPreferencesSonores(chargerPreferencesSonores());
   }, []);
 
   const chargerProfils = () => {
@@ -42,6 +50,24 @@ export default function PreferencesPage() {
     modifierProfilJoueur(id, modifications);
     chargerProfils();
     setProfilEnEdition(null);
+  };
+
+  const toggleSon = () => {
+    const nouvellesPreferences = {
+      ...preferencesSonores,
+      sonActif: !preferencesSonores.sonActif,
+    };
+    setPreferencesSonores(nouvellesPreferences);
+    sauvegarderPreferencesSonores(nouvellesPreferences);
+  };
+
+  const changerVolume = (volume: number) => {
+    const nouvellesPreferences = {
+      ...preferencesSonores,
+      volumeEffetsSonores: volume,
+    };
+    setPreferencesSonores(nouvellesPreferences);
+    sauvegarderPreferencesSonores(nouvellesPreferences);
   };
 
   const profil = profils.find((p) => p.id === profilEnEdition);
@@ -66,7 +92,76 @@ export default function PreferencesPage() {
           <h1 className="text-4xl font-black text-white mb-2">
             Historique & Préférences
           </h1>
-          <p className="text-white/80">Gérez vos profils de joueurs</p>
+          <p className="text-white/80">Gérez vos profils et paramètres</p>
+        </motion.div>
+
+        {/* Préférences sonores */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.05 }}
+          className="mb-4"
+        >
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl flex items-center gap-2">
+                {preferencesSonores.sonActif ? (
+                  <Volume2 className="w-6 h-6 text-purple-500" />
+                ) : (
+                  <VolumeX className="w-6 h-6 text-gray-400" />
+                )}
+                Effets sonores
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-semibold">Activer les sons</h3>
+                  <p className="text-sm text-gray-600">
+                    Bruitages lors des événements du jeu
+                  </p>
+                </div>
+                <Button
+                  onClick={toggleSon}
+                  variant={preferencesSonores.sonActif ? "default" : "outline"}
+                  size="lg"
+                >
+                  {preferencesSonores.sonActif ? (
+                    <>
+                      <Volume2 className="w-5 h-5 mr-2" />
+                      Activé
+                    </>
+                  ) : (
+                    <>
+                      <VolumeX className="w-5 h-5 mr-2" />
+                      Désactivé
+                    </>
+                  )}
+                </Button>
+              </div>
+
+              {preferencesSonores.sonActif && (
+                <div className="pt-2 border-t">
+                  <label className="block mb-2">
+                    <span className="font-semibold">Volume: {Math.round(preferencesSonores.volumeEffetsSonores * 100)}%</span>
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.1"
+                    value={preferencesSonores.volumeEffetsSonores}
+                    onChange={(e) => changerVolume(parseFloat(e.target.value))}
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                  />
+                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>Silencieux</span>
+                    <span>Maximum</span>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </motion.div>
 
         <motion.div
