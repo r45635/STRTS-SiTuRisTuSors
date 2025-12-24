@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="192" height="192" rx="32" fill="url(#bgGrad)"/>
+  
+  <!-- Eyes -->
+  <path d="M 68 75 Q 68 82 68 82 Q 68 82 68 75" 
+        stroke="#ffffff" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M 124 75 Q 124 82 124 82 Q 124 82 124 75" 
+        stroke="#ffffff" stroke-width="6" stroke-linecap="round" fill="none"/>
+  
+  <!-- Eyebrows -->
+  <path d="M 56 63 Q 68 59 80 63" 
+        stroke="#ffffff" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M 112 63 Q 124 59 136 63" 
+        stroke="#ffffff" stroke-width="5" stroke-linecap="round" fill="none"/>
+  
+  <!-- Mouth -->
+  <path d="M 68 112 Q 96 105 124 112" 
+        stroke="#ffffff" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M 75 116 L 73 122 M 117 116 L 119 122" 
+        stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Sweat -->
+  <ellipse cx="52" cy="90" rx="5" ry="7" fill="#ffffff" opacity="0.8"/>
+  <ellipse cx="140" cy="90" rx="5" ry="7" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Text -->
+  <text x="96" y="160" font-family="Arial, sans-serif" font-size="28" font-weight="bold" 
+        text-anchor="middle" fill="#ffffff">STRTS</text>
+</svg>
