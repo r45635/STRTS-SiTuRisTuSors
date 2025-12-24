@@ -7,12 +7,12 @@ import type { PreferencesSonores } from "@/types";
 
 // Sons disponibles dans l'application
 export const SONS = {
-  BLAGUE_AFFICHEE: "/sounds/blague.mp3",
-  JOUEUR_ELIMINÉ: "/sounds/eliminated.mp3",
-  VICTOIRE: "/sounds/victory.mp3",
-  REFUS_BLAGUE: "/sounds/skip.mp3",
-  BOUTON_CLICK: "/sounds/click.mp3",
-  ERREUR: "/sounds/error.mp3",
+  BLAGUE_AFFICHEE: "/sounds/blague.wav",
+  JOUEUR_ELIMINÉ: "/sounds/eliminated.wav",
+  VICTOIRE: "/sounds/victory.wav",
+  REFUS_BLAGUE: "/sounds/skip.wav",
+  BOUTON_CLICK: "/sounds/click.wav",
+  ERREUR: "/sounds/error.wav",
 } as const;
 
 let audioContext: AudioContext | null = null;
