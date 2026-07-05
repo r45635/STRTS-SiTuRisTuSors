@@ -6,7 +6,11 @@
  ██████╔╝   ██║   ██║  ██║   ██║   ███████║
  ╚═════╝    ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝
                                             
-   Si Tu Ris Tu Sors ! - Version 1.0.0 MVP
+   Si Tu Ris Tu Sors ! - Version 2.0.0
+
+   (Ce document présente le socle MVP v1.0. Fonctions V2.0 ajoutées
+    depuis : multijoueur, comptes Supabase, blagues custom, i18n,
+    thèmes, PWA — voir README.md.)
 
 ═══════════════════════════════════════════════════════════════
 
@@ -170,7 +174,7 @@
   ✓ Documentation exhaustive
   ✓ Interface fun et moderne
   ✓ Sauvegarde automatique
-  ✓ Pas de backend nécessaire (MVP)
+  ✓ Jeu solo sans backend ; backend Supabase optionnel (V2.0)
 
 ═══════════════════════════════════════════════════════════════
 

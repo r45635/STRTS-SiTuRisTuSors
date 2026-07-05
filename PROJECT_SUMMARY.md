@@ -1,5 +1,10 @@
 # 🎮 STRTS - Résumé Projet
 
+> 📌 **Document historique** — rapport de la génération initiale du **MVP v1.0**.
+> Le projet est depuis passé en **v2.0** (multijoueur, comptes Supabase, blagues
+> custom, i18n, thèmes, PWA). Pour l'état actuel, voir [README.md](README.md),
+> [ARCHITECTURE.md](ARCHITECTURE.md) et [NEXT_STEPS.md](NEXT_STEPS.md).
+
 ## ✨ Projet complété avec succès !
 
 L'application **STRTS (Si Tu Ris Tu Sors!)** a été entièrement développée selon vos spécifications.
@@ -102,7 +107,7 @@ brew install node
 
 ### Étape 2 : Installation du projet
 ```bash
-cd /Users/vcruvellier/Documents/GitHub/STRTS-SiTuRisTuSors
+cd ~/Github/STRTS-SiTuRisTuSors
 npm install
 ```
 
@@ -183,5 +188,4 @@ Amusez-vous bien avec STRTS et essayez de ne pas rire ! 😄
 
 ---
 
-**Note importante** : Node.js n'est actuellement pas installé sur ce système.
-Suivez le guide dans **INSTALL.md** pour l'installer, puis lancez `npm install` et `npm run dev`.
+**Note** : si Node.js n'est pas installé, suivez le guide dans **INSTALL.md**, puis lancez `npm install` et `npm run dev`.
