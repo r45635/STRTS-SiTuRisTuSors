@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Play, History, Settings } from "lucide-react";
+import { Play, History, Settings, Users } from "lucide-react";
 import { partieEnCoursExiste } from "@/lib/storage";
 
 export default function HomePage() {
@@ -62,6 +62,15 @@ export default function HomePage() {
         )}
 
         <Link
+          href="/multijoueur"
+          className="flex items-center justify-center gap-3 w-full bg-blue-500 text-white hover:bg-blue-600 font-bold py-6 px-8 rounded-2xl shadow-2xl transition-all hover:scale-105"
+          aria-label="Mode multijoueur — chaque joueur sur son téléphone"
+        >
+          <Users className="w-6 h-6" />
+          <span className="text-xl">Multijoueur</span>
+        </Link>
+
+        <Link
           href="/preferences"
           className="flex items-center justify-center gap-3 w-full bg-white/90 text-purple-600 hover:bg-white font-bold py-6 px-8 rounded-2xl shadow-2xl transition-all hover:scale-105"
         >
@@ -76,7 +85,7 @@ export default function HomePage() {
         transition={{ delay: 0.6 }}
         className="mt-12 text-white/70 text-sm"
       >
-        Version 1.0.0 - MVP
+        Version 2.0.0
       </motion.p>
     </div>
   );

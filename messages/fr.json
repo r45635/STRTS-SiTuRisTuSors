@@ -1,0 +1,116 @@
+{
+  "app": {
+    "nom": "STRTS - Si Tu Ris Tu Sors !",
+    "slogan": "Si Tu Ris Tu Sors !"
+  },
+  "accueil": {
+    "nouvellePartie": "Nouvelle Partie",
+    "reprendrePartie": "Reprendre la Partie",
+    "multijoueur": "Multijoueur",
+    "preferences": "Historique & Préférences",
+    "version": "Version"
+  },
+  "jeu": {
+    "auTourDe": "Au tour de",
+    "joueursRestants": "Joueurs restants",
+    "refusRestants": "Refus restants",
+    "blaguesVues": "Blagues vues",
+    "jeSuisPret": "Je suis prêt !",
+    "quiARi": "Qui a ri ?",
+    "joueurSuivant": "Joueur suivant",
+    "refuserBlague": "Refuser cette blague",
+    "personeNaRi": "Personne n'a ri — Joueur suivant",
+    "confirmer": "Confirmer",
+    "annuler": "Annuler",
+    "toutsOntRi": "Tous ont ri — Partie terminée",
+    "gagne": "gagne"
+  },
+  "menu": {
+    "titre": "Menu",
+    "reprendre": "Reprendre",
+    "eliminerJoueur": "Éliminer un joueur",
+    "recommencer": "Recommencer",
+    "quitter": "Quitter"
+  },
+  "victoire": {
+    "titre": "Victoire !",
+    "partieTerminee": "Partie terminée !",
+    "tousOntRi": "Tout le monde a ri, personne ne gagne !",
+    "aGagne": "a gagné la partie !",
+    "statistiques": "Statistiques",
+    "blaguesVues": "Blagues vues",
+    "duree": "Durée",
+    "blaguesParJoueur": "Blagues par joueur",
+    "classement": "Classement",
+    "rejouer": "Rejouer",
+    "retourAccueil": "Retour à l'accueil"
+  },
+  "setup": {
+    "titre": "Configuration de la partie",
+    "etape": "Étape 1/2 - Paramètres généraux",
+    "nomPartie": "Nom de la partie",
+    "modeCategories": "Mode de catégories",
+    "categoriesCommunes": "Catégories communes",
+    "categoriesCommunesDesc": "Même sélection pour tous les joueurs",
+    "categoriesParJoueur": "Catégories par joueur",
+    "categoriesParJoueurDesc": "Chaque joueur choisit ses catégories",
+    "ordreDesTours": "Ordre des tours",
+    "ordreInscription": "Ordre d'inscription",
+    "ordreInscriptionDesc": "Les joueurs jouent dans l'ordre d'ajout",
+    "ordreAleatoire": "Aléatoire au démarrage",
+    "ordreAleatoireDesc": "L'ordre sera mélangé au début de la partie",
+    "chronometre": "Chronomètre par tour",
+    "timerDesactive": "Désactivé",
+    "continuer": "Continuer"
+  },
+  "joueurs": {
+    "titre": "Ajouter les joueurs",
+    "etape": "Étape 2/2 - Minimum 2 joueurs",
+    "nouveauJoueur": "Nouveau joueur",
+    "nomPlaceholder": "Nom du joueur...",
+    "ajouter": "Ajouter",
+    "profilsSauvegardes": "Profils sauvegardés",
+    "masquer": "Masquer",
+    "demarrer": "Démarrer la partie !",
+    "minimum2Joueurs": "Il faut au moins 2 joueurs pour démarrer",
+    "categoriesManquantes": "Tous les joueurs doivent sélectionner au moins une catégorie"
+  },
+  "preferences": {
+    "titre": "Historique & Préférences",
+    "theme": "Thème",
+    "clair": "Clair",
+    "sombre": "Sombre",
+    "systeme": "Système",
+    "effetsSonores": "Effets sonores",
+    "activerSons": "Activer les sons",
+    "bruitages": "Bruitages lors des événements du jeu",
+    "active": "Activé",
+    "desactive": "Désactivé",
+    "volume": "Volume",
+    "mesBlagues": "Mes blagues personnalisées",
+    "mesBlaquesDesc": "Créer et gérer vos propres blagues",
+    "profils": "Profils de joueurs",
+    "aucunProfil": "Aucun profil enregistré."
+  },
+  "multijoueur": {
+    "titre": "Multijoueur",
+    "sousTitre": "Chaque joueur sur son téléphone",
+    "creerPartie": "Créer une partie",
+    "rejoindrePartie": "Rejoindre une partie",
+    "votrenom": "Votre nom",
+    "codePartie": "Code de la partie",
+    "salleAttente": "Salle d'attente",
+    "partagerCode": "Partagez le code pour inviter des joueurs",
+    "demarrer": "Démarrer",
+    "enAttenteHote": "En attente que l'hôte démarre la partie..."
+  },
+  "auth": {
+    "connexion": "Connexion",
+    "email": "Adresse email",
+    "envoyerLienMagique": "Envoyer le lien magique",
+    "verifierEmail": "Vérifiez votre email",
+    "lienEnvoye": "Un lien de connexion a été envoyé à",
+    "lienExpire": "Le lien expire dans 1 heure.",
+    "pasDeMotDePasse": "Pas de mot de passe — nous vous envoyons un lien de connexion par email."
+  }
+}

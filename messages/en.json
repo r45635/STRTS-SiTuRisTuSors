@@ -1,0 +1,116 @@
+{
+  "app": {
+    "nom": "STRTS - If You Laugh You're Out!",
+    "slogan": "If You Laugh You're Out!"
+  },
+  "accueil": {
+    "nouvellePartie": "New Game",
+    "reprendrePartie": "Resume Game",
+    "multijoueur": "Multiplayer",
+    "preferences": "History & Preferences",
+    "version": "Version"
+  },
+  "jeu": {
+    "auTourDe": "It's the turn of",
+    "joueursRestants": "Players remaining",
+    "refusRestants": "Skips remaining",
+    "blaguesVues": "Jokes seen",
+    "jeSuisPret": "I'm ready!",
+    "quiARi": "Who laughed?",
+    "joueurSuivant": "Next player",
+    "refuserBlague": "Skip this joke",
+    "personeNaRi": "Nobody laughed — Next player",
+    "confirmer": "Confirm",
+    "annuler": "Cancel",
+    "toutsOntRi": "Everyone laughed — Game over",
+    "gagne": "wins"
+  },
+  "menu": {
+    "titre": "Menu",
+    "reprendre": "Resume",
+    "eliminerJoueur": "Eliminate a player",
+    "recommencer": "Restart",
+    "quitter": "Quit"
+  },
+  "victoire": {
+    "titre": "Victory!",
+    "partieTerminee": "Game Over!",
+    "tousOntRi": "Everyone laughed, nobody wins!",
+    "aGagne": "has won the game!",
+    "statistiques": "Statistics",
+    "blaguesVues": "Jokes seen",
+    "duree": "Duration",
+    "blaguesParJoueur": "Jokes per player",
+    "classement": "Ranking",
+    "rejouer": "Play again",
+    "retourAccueil": "Back to home"
+  },
+  "setup": {
+    "titre": "Game configuration",
+    "etape": "Step 1/2 - General settings",
+    "nomPartie": "Game name",
+    "modeCategories": "Category mode",
+    "categoriesCommunes": "Common categories",
+    "categoriesCommunesDesc": "Same selection for all players",
+    "categoriesParJoueur": "Categories per player",
+    "categoriesParJoueurDesc": "Each player chooses their categories",
+    "ordreDesTours": "Turn order",
+    "ordreInscription": "Registration order",
+    "ordreInscriptionDesc": "Players play in the order they were added",
+    "ordreAleatoire": "Random at start",
+    "ordreAleatoireDesc": "Order will be shuffled at game start",
+    "chronometre": "Timer per turn",
+    "timerDesactive": "Disabled",
+    "continuer": "Continue"
+  },
+  "joueurs": {
+    "titre": "Add players",
+    "etape": "Step 2/2 - Minimum 2 players",
+    "nouveauJoueur": "New player",
+    "nomPlaceholder": "Player name...",
+    "ajouter": "Add",
+    "profilsSauvegardes": "Saved profiles",
+    "masquer": "Hide",
+    "demarrer": "Start game!",
+    "minimum2Joueurs": "At least 2 players required to start",
+    "categoriesManquantes": "All players must select at least one category"
+  },
+  "preferences": {
+    "titre": "History & Preferences",
+    "theme": "Theme",
+    "clair": "Light",
+    "sombre": "Dark",
+    "systeme": "System",
+    "effetsSonores": "Sound effects",
+    "activerSons": "Enable sounds",
+    "bruitages": "Sound effects during game events",
+    "active": "Enabled",
+    "desactive": "Disabled",
+    "volume": "Volume",
+    "mesBlagues": "My custom jokes",
+    "mesBlaquesDesc": "Create and manage your own jokes",
+    "profils": "Player profiles",
+    "aucunProfil": "No saved profiles."
+  },
+  "multijoueur": {
+    "titre": "Multiplayer",
+    "sousTitre": "Each player on their own phone",
+    "creerPartie": "Create a game",
+    "rejoindrePartie": "Join a game",
+    "votrenom": "Your name",
+    "codePartie": "Game code",
+    "salleAttente": "Waiting room",
+    "partagerCode": "Share the code to invite players",
+    "demarrer": "Start",
+    "enAttenteHote": "Waiting for the host to start the game..."
+  },
+  "auth": {
+    "connexion": "Sign in",
+    "email": "Email address",
+    "envoyerLienMagique": "Send magic link",
+    "verifierEmail": "Check your email",
+    "lienEnvoye": "A sign-in link has been sent to",
+    "lienExpire": "The link expires in 1 hour.",
+    "pasDeMotDePasse": "No password needed — we send you a sign-in link by email."
+  }
+}

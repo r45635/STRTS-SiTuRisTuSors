@@ -1,6 +1,6 @@
 # STRTS - Si Tu Ris Tu Sors ! 🎉
 
-**Version 1.0.0 - MVP**
+**Version 2.0.0**
 
 Une application web mobile-first en pass-and-play pour jouer au célèbre jeu "Si Tu Ris Tu Sors" avec vos amis !
 
@@ -18,6 +18,13 @@ STRTS est un jeu social qui se joue sur un seul appareil. Les joueurs se relaien
 - 🎲 **Ordre aléatoire ou fixe** : choisissez votre mode de jeu
 - ⛔ **Système de refus** : 2 refus maximum par joueur
 - 🏆 **Statistiques de fin** : suivez les performances de chaque joueur
+- 🌐 **Multijoueur en ligne** : jouez à distance en temps réel (Supabase Realtime)
+- ✍️ **Blagues personnalisées** : créez et partagez vos propres blagues
+- 🔐 **Comptes utilisateurs** : authentification Supabase (optionnelle)
+- 🌗 **Mode sombre** : thème clair/sombre au choix
+- 🌍 **Internationalisation** : interface multilingue (next-intl)
+- 🔊 **Bruitages** : effets sonores activables dans les préférences
+- 📲 **PWA** : installable sur l'écran d'accueil, fonctionne hors-ligne
 
 ## 🎯 Règles du jeu
 
@@ -128,44 +135,43 @@ Les tests couvrent le **game engine** complet :
 STRTS-SiTuRisTuSors/
 ├── app/                      # Routes Next.js (App Router)
 │   ├── page.tsx             # Page d'accueil
-│   ├── setup/               # Configuration de partie
-│   │   ├── page.tsx         # Étape 1 : Config générale
-│   │   └── joueurs/         
-│   │       └── page.tsx     # Étape 2 : Ajout joueurs
-│   ├── game/                # Jeu principal
-│   │   └── page.tsx         # Écrans de jeu (tour, révélation, menu, victoire)
-│   ├── layout.tsx           # Layout principal
-│   └── globals.css          # Styles globaux
+│   ├── setup/               # Configuration de partie (config + joueurs)
+│   ├── game/                # Jeu principal (orchestrateur d'écrans)
+│   ├── preferences/         # Son, thème, langue
+│   ├── blagues-custom/      # Blagues créées par l'utilisateur
+│   ├── auth/                # Connexion / callback (Supabase)
+│   ├── multijoueur/         # Mode multijoueur distant + salle
+│   ├── layout.tsx           # Layout (ThemeProvider, i18n, Analytics)
+│   └── globals.css          # Styles globaux (thèmes clair/sombre)
 │
 ├── components/              # Composants UI réutilisables
-│   └── ui/                  # Composants shadcn/ui
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── input.tsx
-│       └── ...
+│   ├── ThemeProvider.tsx    # Contexte thème
+│   ├── Analytics.tsx        # Plausible
+│   ├── game/                # Écrans de jeu (EcranTour, EcranRevelation, …)
+│   └── ui/                  # Composants shadcn/ui (button, card, dialog, …)
 │
 ├── lib/                     # Logique métier
 │   ├── game.ts             # 🎮 Game engine (logique pure)
-│   ├── blagues.ts          # 📚 Chargement et gestion des blagues
+│   ├── blagues.ts          # 📚 Blagues intégrées
+│   ├── blagues-custom.ts   # ✍️ Blagues utilisateur
 │   ├── storage.ts          # 💾 Persistance localStorage
+│   ├── supabase.ts         # 🔌 Client Supabase
+│   ├── auth.ts             # 🔐 Authentification
+│   ├── multijoueur.ts      # 🌐 Multijoueur (Realtime)
+│   ├── votes.ts            # 👍 Votes / stats
+│   ├── theme.ts            # 🌗 Thème · locale.ts 🌍 langue · sound.ts 🔊 son
 │   └── utils.ts            # 🛠️ Utilitaires
 │
-├── types/                   # Types TypeScript
-│   └── index.ts            # Tous les types (Blague, Joueur, EtatPartie, etc.)
-│
-├── data/                    # Données statiques
-│   └── all_blagues.json    # Base de blagues (5000+)
-│
-├── __tests__/              # Tests unitaires
-│   └── game.test.ts        # Tests du game engine
-│
-├── public/                  # Assets statiques
-├── package.json            # Dépendances et scripts
-├── tsconfig.json           # Configuration TypeScript
-├── tailwind.config.ts      # Configuration Tailwind CSS
-├── vitest.config.ts        # Configuration tests
-└── next.config.js          # Configuration Next.js
+├── i18n/  · messages/       # Internationalisation (next-intl)
+├── types/                   # Types TS (index.ts + supabase.ts)
+├── data/all_blagues.json    # Base de ~845 blagues
+├── supabase/schema.sql      # Schéma backend (tables + RLS)
+├── __tests__/game.test.ts   # Tests du game engine
+├── public/                  # Assets + service worker PWA (généré)
+└── (config: package.json, tsconfig, tailwind, vitest, next.config, vercel.json)
 ```
+
+> Détail complet de l'architecture et des flux de données : voir [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## 🧩 Stack technique
 
@@ -184,9 +190,18 @@ STRTS-SiTuRisTuSors/
 
 ### Gestion d'état & Données
 
-- **localStorage** - Persistance côté client
+- **localStorage** - Persistance côté client (partie en cours, préférences)
 - **sessionStorage** - État temporaire (config setup)
-- JSON statique - Base de blagues
+- JSON statique - Base de blagues (~845)
+- **Supabase** - Backend optionnel : auth, multijoueur temps réel, blagues partagées, votes
+
+### Backend & Plateforme (V2.0)
+
+- **Supabase** (`@supabase/supabase-js`) - Postgres, Auth, Realtime, RLS
+- **next-intl** - Internationalisation
+- **@ducanh2912/next-pwa** - Progressive Web App / offline
+- **recharts** - Graphiques de statistiques
+- **sonner** - Notifications toast
 
 ### Tests
 
@@ -316,25 +331,25 @@ npm start
 
 Servir le dossier `.next` avec Node.js.
 
-## 🐛 Problèmes connus (MVP)
+## ⚙️ Configuration Supabase (fonctions en ligne)
 
-- Pas de backend (tout en local)
+Le jeu **solo fonctionne sans aucune configuration**. Pour activer le multijoueur,
+les comptes et les blagues partagées :
+
+1. Créer un projet sur [supabase.com](https://supabase.com)
+2. Copier `.env.example` → `.env.local` et renseigner `NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+3. Exécuter `supabase/schema.sql` dans l'éditeur SQL Supabase (tables + RLS)
+
+## 🐛 Problèmes connus
+
 - Images externes non optimisées (utilisation de `<img>` standard)
-- Pas d'historique de parties
-- Pas de profils joueurs enrichis
-- Pas de mode multijoueur distant
+- Pas d'historique persistant des parties solo
+- Validation métier principalement côté client (mode solo)
 
-## 🚀 Évolutions futures (V2+)
+## 🚀 Évolutions futures
 
-- [ ] Backend pour statistiques globales
-- [ ] Mode multijoueur en ligne
-- [ ] Ajout de blagues par les utilisateurs
-- [ ] Système de niveaux/achievements
-- [ ] Partage des scores sur réseaux sociaux
-- [ ] PWA avec installation sur l'écran d'accueil
-- [ ] Son et effets sonores
-- [ ] Mode sombre
-- [ ] Internationalisation (i18n)
+La roadmap complète (V3.0 : monétisation, tournois, app native, IA…) est suivie
+dans [NEXT_STEPS.md](NEXT_STEPS.md).
 
 ## 📄 Licence
 

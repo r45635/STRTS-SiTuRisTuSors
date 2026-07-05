@@ -49,13 +49,23 @@ function transformerBlague(blagueJSON: BlagueJSON): Blague {
 }
 
 /**
- * Charge toutes les blagues depuis le JSON
- * Filtre les blagues sans texte (MVP: on affiche uniquement celles avec du texte)
+ * Charge toutes les blagues (JSON statique + custom utilisateur)
  */
 export function chargerBlagues(): Blague[] {
   const blagues = (blaguesJSON as BlagueJSON[])
     .map(transformerBlague)
     .filter((blague) => blague.texte && blague.texte.trim().length > 0);
+
+  // Fusionner avec les blagues custom (côté client uniquement)
+  if (typeof window !== "undefined") {
+    try {
+      const raw = localStorage.getItem("strts_blagues_custom");
+      const custom: Blague[] = raw ? JSON.parse(raw) : [];
+      return [...blagues, ...custom];
+    } catch {
+      return blagues;
+    }
+  }
 
   return blagues;
 }

@@ -47,6 +47,7 @@ export interface ConfigurationPartie {
   modeCategorie: ModeCategorieType;
   ordreTours: OrdreToursType;
   categoriesCommunes?: string[]; // Si modeCategorie === "communes"
+  dureeTimerSecondes?: number; // 0 ou undefined = désactivé
 }
 
 /**

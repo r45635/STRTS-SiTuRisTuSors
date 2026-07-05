@@ -9,49 +9,86 @@ STRTS-SiTuRisTuSors/
 │
 ├── app/                          # 🎯 Routes Next.js (App Router)
 │   ├── page.tsx                 # Page d'accueil
-│   ├── layout.tsx               # Layout global
-│   ├── globals.css              # Styles globaux
+│   ├── layout.tsx               # Layout global (ThemeProvider, i18n, Analytics)
+│   ├── globals.css              # Styles globaux (thèmes clair/sombre)
 │   │
 │   ├── setup/                   # 🎨 Configuration de partie
 │   │   ├── page.tsx            # Étape 1: Config (catégories, ordre)
 │   │   └── joueurs/
 │   │       └── page.tsx        # Étape 2: Ajout joueurs
 │   │
-│   └── game/                    # 🎮 Jeu principal
-│       └── page.tsx            # Tous les écrans de jeu
+│   ├── game/                    # 🎮 Jeu principal
+│   │   └── page.tsx            # Orchestrateur des écrans de jeu
+│   │
+│   ├── preferences/            # ⚙️ Préférences (son, thème, langue)
+│   ├── blagues-custom/         # ✍️ Blagues créées par l'utilisateur
+│   ├── auth/                   # 🔐 Authentification Supabase
+│   │   ├── connexion/         # Connexion / inscription
+│   │   └── callback/          # Callback OAuth
+│   └── multijoueur/            # 🌐 Mode multijoueur distant
+│       └── salle/             # Salle de jeu en temps réel
 │
 ├── components/                   # 🧩 Composants réutilisables
+│   ├── ThemeProvider.tsx       # Contexte thème clair/sombre
+│   ├── Analytics.tsx           # Intégration Plausible
+│   ├── game/                   # Écrans de jeu (extraits de game/page.tsx)
+│   │   ├── EcranTour.tsx
+│   │   ├── EcranRevelation.tsx
+│   │   ├── EcranMenu.tsx
+│   │   ├── EcranEliminer.tsx
+│   │   ├── EcranJeRisJeSors.tsx
+│   │   └── EcranVictoire.tsx
 │   └── ui/                      # Composants shadcn/ui
 │       ├── button.tsx
 │       ├── card.tsx
 │       ├── input.tsx
-│       └── textarea.tsx
+│       ├── textarea.tsx
+│       ├── dialog.tsx
+│       └── alert-dialog.tsx
 │
 ├── lib/                         # 🔧 Logique métier (CORE)
 │   ├── game.ts                 # 🎲 Game engine (fonctions pures)
 │   ├── blagues.ts              # 📚 Chargement des blagues
+│   ├── blagues-custom.ts       # ✍️ CRUD blagues utilisateur
 │   ├── storage.ts              # 💾 Persistance localStorage
+│   ├── supabase.ts             # 🔌 Client Supabase
+│   ├── auth.ts                 # 🔐 Session / authentification
+│   ├── multijoueur.ts          # 🌐 Logique multijoueur (Realtime)
+│   ├── votes.ts                # 👍 Votes / stats côté serveur
+│   ├── theme.ts                # 🌗 Gestion du thème
+│   ├── locale.ts               # 🌍 Détection / bascule de langue
+│   ├── sound.ts                # 🔊 Bruitages
 │   └── utils.ts                # 🛠️ Utilitaires divers
 │
+├── i18n/                        # 🌍 Configuration next-intl
+├── messages/                    # 🌍 Traductions (fr, en, …)
+│
 ├── types/                       # 📝 Types TypeScript
-│   └── index.ts                # Tous les types métier
+│   ├── index.ts                # Types métier
+│   └── supabase.ts             # Types générés de la base
 │
 ├── data/                        # 📊 Données statiques
-│   └── all_blagues.json        # Base de 5000+ blagues
+│   └── all_blagues.json        # Base de ~845 blagues
+│
+├── supabase/                    # 🗄️ Backend
+│   └── schema.sql              # Schéma SQL (tables, RLS)
 │
 ├── __tests__/                   # 🧪 Tests unitaires
 │   └── game.test.ts            # Tests du game engine
 │
-├── public/                      # 🌐 Assets publics
+├── public/                      # 🌐 Assets publics (+ service worker PWA généré)
 │
 └── config files                 # ⚙️ Configuration
     ├── package.json            # Dépendances
     ├── tsconfig.json           # TypeScript
     ├── tailwind.config.ts      # Tailwind CSS
     ├── vitest.config.ts        # Tests
-    ├── next.config.js          # Next.js
+    ├── next.config.js          # Next.js (+ next-pwa, next-intl)
+    ├── vercel.json             # Config déploiement Vercel
     └── postcss.config.js       # PostCSS
 ```
+
+> **Note V2.0** — L'architecture initiale (game engine local + localStorage) reste le cœur du jeu en pass-and-play. Les couches ajoutées (Supabase, multijoueur, auth, i18n, thèmes, PWA, blagues custom) sont **optionnelles** : le jeu solo fonctionne sans backend ni variables d'environnement.
 
 ## 🏗️ Principes d'architecture
 
@@ -326,12 +363,17 @@ export function tirerBlague(partie: EtatPartie): ResultatTirage {
 
 ## 🔐 Sécurité
 
-Pas de données sensibles (tout en local).
+Le jeu solo reste 100 % local (aucune donnée sensible). Les fonctions en ligne
+(multijoueur, blagues partagées, votes) s'appuient sur Supabase :
+
+- **Authentification** : Supabase Auth (`lib/auth.ts`, `app/auth/`)
+- **Autorisation** : Row Level Security (RLS) définie dans `supabase/schema.sql`
+- **Clés** : seule la clé `anon` publique est exposée côté client (`NEXT_PUBLIC_*`) ;
+  ne jamais committer `.env*.local` (déjà ignoré par git). Voir `.env.example`.
 
 **Limitations** :
-- Pas d'authentification
-- Pas de validation serveur
-- localStorage accessible en clair
+- localStorage accessible en clair (état de partie local)
+- Validation métier principalement côté client pour le mode solo
 
 ## 🌍 Déploiement
 
